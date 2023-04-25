@@ -1,10 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FieldInput } from './Filter.styled';
+import { useDispatch } from 'react-redux';
+import { setFilter } from 'redux/actions';
 
-export const Filter = ({ onChange }) => {
+export const Filter = () => {
+  const dispatch = useDispatch();
+
   const handleChangeFilter = e => {
-    onChange(e.target.value);
+    dispatch(setFilter(e.target.value));
   };
 
   return (
@@ -15,6 +19,6 @@ export const Filter = ({ onChange }) => {
   );
 };
 
-Filter.propTypes = {
-  onChange: PropTypes.func.isRequired,
-};
+// Filter.propTypes = {
+//   onChange: PropTypes.func.isRequired,
+// };

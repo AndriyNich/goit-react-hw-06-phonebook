@@ -21,44 +21,40 @@ export function App() {
     }
     return [];
   });
-  const [filter, setFilter] = useState('');
+  // const [filter, setFilter] = useState('');
 
   useEffect(() => {
     localStorage.setItem(LS_LIST, JSON.stringify(contacts));
   }, [contacts]);
 
-  const contains = ({ name }) => {
-    return contacts.filter(elem => elem.name === name).length;
-  };
+  // const contains = ({ name }) => {
+  //   return contacts.filter(elem => elem.name === name).length;
+  // };
 
-  const handleAddContact = newRecord => {
-    if (contains(newRecord)) {
-      alert(`${newRecord.name} is already in contacts`);
-      return;
-    }
+  // const handleAddContact = newRecord => {
+  //   if (contains(newRecord)) {
+  //     alert(`${newRecord.name} is already in contacts`);
+  //     return;
+  //   }
 
-    setContacts(prevState => [...prevState, newRecord]);
-  };
+  //   setContacts(prevState => [...prevState, newRecord]);
+  // };
 
-  const handelChangeFilter = filter => {
-    setFilter(filter);
-  };
+  // const handelChangeFilter = filter => {
+  //   setFilter(filter);
+  // };
 
-  const handleDeleteContact = recordId => {
-    setContacts(prevState => prevState.filter(({ id }) => id !== recordId));
-  };
+  // const handleDeleteContact = recordId => {
+  //   setContacts(prevState => prevState.filter(({ id }) => id !== recordId));
+  // };
 
   return (
     <AppWraper>
       <MainTitle>Phone book</MainTitle>
-      <ContactForm onSave={handleAddContact} />
+      <ContactForm />
       <Title>Contacts</Title>
-      <Filter onChange={handelChangeFilter} />
-      <ContactsList
-        contacts={contacts}
-        searchLine={filter}
-        onDelete={handleDeleteContact}
-      />
+      <Filter />
+      <ContactsList />
     </AppWraper>
   );
 }
