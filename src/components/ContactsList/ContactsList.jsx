@@ -5,14 +5,14 @@ import { ContactItem } from './ContactItem/ContactItem';
 import { useSelector } from 'react-redux';
 import { getContacts, getFilter } from '../../redux/selectors';
 
-const getFilteredContactList = (contacts, filter) => {
+const getFilteredContactList = (contacts, filter = '') => {
   const filterL = filter.toLowerCase();
   return contacts.filter(elem => elem.name.toLowerCase().includes(filterL));
 };
 
 export function ContactsList() {
   const contacts = useSelector(getContacts);
-  const filter = useSelector(getFilter);
+  const filter = useSelector(getFilter).filter;
 
   return (
     <ContactsListWraper>
@@ -36,5 +36,4 @@ ContactsList.propTypes = {
     ),
     filter: PropTypes.string,
   }),
-  onDelete: PropTypes.func.isRequired,
 };

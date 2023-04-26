@@ -1,31 +1,32 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react'; // { useState, useEffect }
 import { AppWraper, MainTitle, Title } from './App.styled';
 import { ContactForm } from './ContactForm/ContactForm';
 import { Filter } from './Filter/Filter';
 import { ContactsList } from './ContactsList/ContactsList';
 
-const LS_LIST = 'contactsList';
+// const LS_LIST = 'contactsList';
 
 export function App() {
-  const [contacts, setContacts] = useState(() => {
-    let initContacts = localStorage.getItem(LS_LIST);
+  // const [contacts, setContacts] = useState(() => {
+  //   let initContacts = localStorage.getItem(LS_LIST);
 
-    if (initContacts) {
-      try {
-        initContacts = JSON.parse(initContacts);
+  //   if (initContacts) {
+  //     try {
+  //       initContacts = JSON.parse(initContacts);
 
-        if (Array.isArray(initContacts)) {
-          return initContacts;
-        }
-      } catch {}
-    }
-    return [];
-  });
+  //       if (Array.isArray(initContacts)) {
+  //         return initContacts;
+  //       }
+  //     } catch {}
+  //   }
+  //   return [];
+  // });
+
   // const [filter, setFilter] = useState('');
 
-  useEffect(() => {
-    localStorage.setItem(LS_LIST, JSON.stringify(contacts));
-  }, [contacts]);
+  // useEffect(() => {
+  //   localStorage.setItem(LS_LIST, JSON.stringify(contacts));
+  // }, [contacts]);
 
   // const contains = ({ name }) => {
   //   return contacts.filter(elem => elem.name === name).length;
