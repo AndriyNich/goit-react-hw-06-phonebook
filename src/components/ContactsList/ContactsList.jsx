@@ -1,18 +1,17 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import { ContactsListWraper, ContactsListItem } from './ContactsList.styled';
 import { ContactItem } from './ContactItem/ContactItem';
-import { useSelector } from 'react-redux';
-import { getContacts, getFilter } from '../../redux/selectors';
+import { getContacts, getFilter } from 'redux/selectors';
 
 const getFilteredContactList = (contacts, filter = '') => {
-  const filterL = filter.toLowerCase();
+  const filterL = filter.toLowerCase().trim();
   return contacts.filter(elem => elem.name.toLowerCase().includes(filterL));
 };
 
 export function ContactsList() {
   const contacts = useSelector(getContacts);
-  const filter = useSelector(getFilter).filter;
+  const filter = useSelector(getFilter);
 
   return (
     <ContactsListWraper>
@@ -26,14 +25,3 @@ export function ContactsList() {
     </ContactsListWraper>
   );
 }
-
-ContactsList.propTypes = {
-  state: PropTypes.shape({
-    contacts: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.string.isRequired,
-      })
-    ),
-    filter: PropTypes.string,
-  }),
-};

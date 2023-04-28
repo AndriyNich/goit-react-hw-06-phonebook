@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import {
@@ -10,6 +10,7 @@ import {
   Button,
 } from './ContactForm.styled';
 import { addContact } from 'redux/contactsSlice';
+import { getContacts } from 'redux/selectors';
 
 const ContactSchema = Yup.object().shape({
   name: Yup.string()
@@ -26,27 +27,29 @@ const ContactSchema = Yup.object().shape({
     ),
 });
 
-// const contains = ({ name }) => {
-//   return contacts.filter(elem => elem.name === name).length;
-// };
-
-// const handleAddContact = newRecord => {
-//   if (contains(newRecord)) {
-//     alert(`${newRecord.name} is already in contacts`);
-//     return;
-//   }
+const contains = (contacts, { name }) => {
+  return contacts.filter(elem => elem.name.toLowerCase() === name.toLowerCase())
+    .length;
+};
 
 export const ContactForm = () => {
   const dispatch = useDispatch();
+  const contacts = useSelector(getContacts);
+
+  const handleSubmit = (values, actions) => {
+    if (contains(contacts, values) <= 0) {
+      dispatch(addContact(values.name, values.number));
+    } else {
+      alert(`User "${values.name}" is already in contacts`);
+    }
+    actions.resetForm();
+  };
 
   return (
     <Formik
       initialValues={{ name: '', number: '' }}
       validationSchema={ContactSchema}
-      onSubmit={(values, actions) => {
-        dispatch(addContact(values.name, values.number));
-        actions.resetForm();
-      }}
+      onSubmit={handleSubmit}
     >
       <Form autoComplete="off">
         <FieldLabel htmlFor="name">
